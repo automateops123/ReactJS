@@ -23,4 +23,7 @@ function App() {
   );
 }
 
+app.set('port', (process.env.PORT || 9981))
+app.use(express.static(__dirname + '/images'))
+
 export default App;
