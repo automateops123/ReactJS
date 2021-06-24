@@ -13,5 +13,10 @@ pipeline {
                 sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
             }
         }
+        stage9"start") {
+            steps {
+                 sh "sudo npm start"
+            }
+        }
     }
 }
