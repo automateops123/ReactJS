@@ -1,31 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
-        }
-    }
-     environment {
-            CI = 'true'
-        }
-    stages {
-        stage('Build') {
+     agent any
+     stages {
+        stage("Build") {
             steps {
-                sh 'npm install'
+                sh "sudo npm install"
+                sh "sudo npm run build"
             }
         }
-        stage('Test') {
-                    steps {
-                        sh './scripts/runTest.sh'
-                    }
-                }
-                stage('Deliver') {
-                            steps {
-                                sh './scripts/runApp.sh'
-                                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                                sh './scripts/stopApp.sh'
-                            }
-                        }
-
+        stage("Deploy") {
+            steps {
+                sh "sudo rm -rf /var/www/jenkins-react-app"
+                sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
+            }
+        }
     }
 }
