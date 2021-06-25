@@ -6,7 +6,8 @@ pipeline {
 
     tools {nodejs "nodejs-12"}
 
-      stages("Cloning"){
+      stages {
+          stage("Cloning"){
           steps{
               git url :  "https://For_demo@bitbucket.org/For_demo/reactjs.git", branch : "master"
           }
@@ -33,7 +34,7 @@ pipeline {
            }
          
       }
-
+   }
 }
 
 def getDockerTag(){
