@@ -14,8 +14,10 @@ pipeline {
       }
 
       stage("Build"){
-
-          sh "docker build -t saikumar080319/react:${buildNumber} ." 
+          steps{
+              sh "docker build -t saikumar080319/react:${DOCKER_TAG} ." 
+          }
+    
       }
 
       stage("Docker login & Push"){
@@ -23,15 +25,16 @@ pipeline {
           withCredentials([string(credentialsId: 'Docker', variable: 'Docker')]) {
               sh "docker login -u saikumar080319 -p ${Docker} "
             }
-             sh "docker push saikumar080319/react:${buildNumber} ."
+             sh "docker push saikumar080319/react:${DOCKER_TAG} ."
           }
       }
 
       stage("Deploy"){
-          sshagent(['ssh_keys']) {
+          steps{ sshagent(['ssh_keys']) {
               sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker rm -f customcontainer || true"
-             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker run -d -p 80:80 --name cont1 saikumar080319/react:${buildNumber} ."
+             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker run -d -p 80:80 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
            }
+        } 
          
       }
    }
