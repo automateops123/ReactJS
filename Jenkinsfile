@@ -11,7 +11,7 @@ pipeline {
             steps {
                sshagent(['SSH_key']) {
                      sh "sudo rm -rf   /var/www/jenkins-react-app"
-                     sh "scp -o StrictHostKeyChecking=no ${WORKSPACE}/build/ ec2-user@35.153.83.105:/var/www/jenkins-react-app/
+                     sh "scp -o StrictHostKeyChecking=no ${WORKSPACE}/build/ ec2-user@35.153.83.105:/var/www/jenkins-react-app/"
                }
                 
             }
