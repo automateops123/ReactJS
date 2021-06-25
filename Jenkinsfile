@@ -1,25 +1,35 @@
 pipeline {
-     agent any
-     stages {
-        stage("Build") {
-            steps {
-                sh "sudo npm install"
-                sh "sudo npm run build"
+    agent any
+
+     def buildNumber = BUILD_NUMBER
+    tools {nodejs "nodejs-12"}
+
+      stages("Cloning"){
+          steps{
+              git url :  "https://For_demo@bitbucket.org/For_demo/reactjs.git", branch : "master"
+          }
+      }
+
+      stage("Build"){
+
+          sh "docker build -t saikumar080319/react:${buildNumber} ." 
+      }
+
+      stage("Docker login & Push"){
+          steps{
+          withCredentials([string(credentialsId: 'Docker', variable: 'Docker')]) {
+              sh "docker login -u saikumar080319 -p ${Docker} "
             }
-        }
-        stage("Deploy") {
-            steps {
-               sshagent(['SSH_key']) {
-                     sh "sudo rm -rf   /var/www/jenkins-react-app"
-                     sh "scp -o StrictHostKeyChecking=no ${WORKSPACE}/build/ ec2-user@35.153.83.105:/var/www/jenkins-react-app/"
-               }
-                
-            }
-        }
-        stage("start") {
-            steps {
-                 sh "screen -d -m -S screen.npmStart npm start"
-            }
-        }
-    }
+             sh "docker push saikumar080319/react:${buildNumber} ."
+          }
+      }
+
+      stage("Deploy"){
+          sshagent(['ssh_keys']) {
+              sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker rm -f customcontainer || true"
+             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker run -d -p 80:80 --name cont1 saikumar080319/react:${buildNumber} ."
+           }
+         
+      }
+
 }
