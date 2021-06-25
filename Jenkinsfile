@@ -1,7 +1,9 @@
 pipeline {
     agent any
+     environment{
+       DOCKER_TAG = getDockerTag()
+  }
 
-     def buildNumber = BUILD_NUMBER
     tools {nodejs "nodejs-12"}
 
       stages("Cloning"){
@@ -32,4 +34,9 @@ pipeline {
          
       }
 
+}
+
+def getDockerTag(){
+    def tag = sh script: 'git rev-parse HEAD', returnStdout: true
+    return tag
 }
