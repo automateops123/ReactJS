@@ -1,7 +1,7 @@
 pipeline {
     agent any
-       environment{
-       DOCKER_TAG = getDockerTag()
+    environment{
+    DOCKER_TAG = getDockerTag()
   }
 
     tools {nodejs "nodejs-12"}
@@ -17,7 +17,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "docker build -t saikumar080319/react:${DOCKER_TAG} ." 
+              sh "docker build . -t saikumar080319/react:${DOCKER_TAG}" 
           }
     
       }
@@ -27,7 +27,7 @@ pipeline {
           withCredentials([string(credentialsId: 'Docker', variable: 'Docker')]) {
               sh "docker login -u saikumar080319 -p ${Docker} "
             }
-             sh "docker push saikumar080319/react:${DOCKER_TAG} ."
+             sh "docker push saikumar080319/react:${DOCKER_TAG}"
           }
       }
 
