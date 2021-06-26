@@ -7,11 +7,12 @@ pipeline {
     tools {nodejs "nodejs-12"}
 
       stages {
-          stage("Cloning"){
-          steps{
-              git url :  "https://For_demo@bitbucket.org/For_demo/reactjs.git", branch : "master"
-          }
-      }
+           stage ('Checkout SCM'){
+             steps {
+          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://For_demo@bitbucket.org/For_demo/appforlogin.git']]])
+             }
+        
+      }     
 
       stage("Build"){
           steps{
