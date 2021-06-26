@@ -37,8 +37,9 @@ pipeline {
              sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker run -d -p 80:80 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
              
            }
-        } 
-       post {
+        }
+        
+        post {
         cleanup {
             /* clean up our workspace */
             deleteDir()
@@ -50,10 +51,11 @@ pipeline {
             dir("${workspace}@script") {
                 deleteDir()
             }
-         
+        }
       }
-   }
+  }
 }
+
 
 def getDockerTag(){
     def tag = sh script: 'git rev-parse HEAD', returnStdout: true
