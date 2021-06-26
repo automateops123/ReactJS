@@ -1,8 +1,5 @@
 pipeline {
     agent any
-     environment{
-       DOCKER_TAG = getDockerTag()
-  }
 
     tools {nodejs "nodejs-12"}
 
@@ -16,7 +13,8 @@ pipeline {
 
       stage("Build"){
           steps{
-              sh "docker build -t saikumar080319/react:${DOCKER_TAG} ." 
+              sh "npm install"
+              sh "docker build -t saikumar080319/react ." 
           }
     
       }
@@ -39,9 +37,4 @@ pipeline {
          
       }
    }
-}
-
-def getDockerTag(){
-    def tag = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
 }
