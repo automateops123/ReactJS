@@ -35,9 +35,21 @@ pipeline {
           steps{ sshagent(['ssh_keys']) {
               sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker rm -f cont1 || true"
              sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 docker run -d -p 80:80 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
-             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.60.103 rm -rf /var/lib/jenkins/workspace/React@tmp/durable-5ed2094e/script.sh"
+             
            }
         } 
+       post {
+        cleanup {
+            /* clean up our workspace */
+            deleteDir()
+            /* clean up tmp directory */
+            dir("${workspace}@tmp") {
+                deleteDir()
+            }
+            /* clean up script directory */
+            dir("${workspace}@script") {
+                deleteDir()
+            }
          
       }
    }
