@@ -16,7 +16,7 @@ pipeline {
 
       stage("Build"){
           steps{
-              sh "docker build -t saikumar080319/react:${DOCKER_TAG} ." 
+              sh "docker build .-t saikumar080319/react:${DOCKER_TAG}" 
           }
     
       }
