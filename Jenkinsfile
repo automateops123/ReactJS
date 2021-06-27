@@ -17,7 +17,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "docker build -f . -t saikumar080319/react:${DOCKER_TAG}" 
+              sh "docker build -f Dockerfile -t saikumar080319/react:${DOCKER_TAG}" 
           }
     
       }
@@ -50,10 +50,11 @@ pipeline {
             /* clean up script directory */
             dir("${workspace}@script") {
                 deleteDir()
-            }
-          }
-        }
-   }
+             }
+           }
+         }
+      }
+    }
 }
 
 
