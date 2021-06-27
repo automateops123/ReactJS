@@ -21,21 +21,6 @@ pipeline {
           }
     
       }
-       stage ("post"){
-          steps{
-            /* clean up our workspace */
-            deleteDir()
-            /* clean up tmp directory */
-            dir("${workspace}@tmp") {
-                deleteDir()
-            }
-            /* clean up script directory */
-            dir("${workspace}@script") {
-                deleteDir()
-             }
-           }
-         }
-      }
 
       stage("Docker login & Push"){
           steps{
