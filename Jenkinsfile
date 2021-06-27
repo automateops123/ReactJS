@@ -22,7 +22,7 @@ pipeline {
     
       }
        stage ("post"){
-          Steps{
+          steps{
             /* clean up our workspace */
             deleteDir()
             /* clean up tmp directory */
