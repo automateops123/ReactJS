@@ -21,8 +21,8 @@ pipeline {
           }
     
       }
-       post {
-          cleanup {
+       stage ("post"){
+          Steps{
             /* clean up our workspace */
             deleteDir()
             /* clean up tmp directory */
