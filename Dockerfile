@@ -1,5 +1,9 @@
 FROM node:10 AS builder
 
+WORKDIR /app
+
+COPY . .
+
 RUN npm run build
 
 FROM nginx:alpine
