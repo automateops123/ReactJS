@@ -5,8 +5,8 @@ pipeline {
             steps {
                 sh "sudo npm install"
                 sh "sudo npm run build"
-                sh "mkdir /app"
-                sh "copy . ."
+                sh "sudo mkdir /app"
+                sh "sudo copy . ."
             }
         }
          stage("Deploy") {
