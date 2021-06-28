@@ -4,10 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-ARG Dockerfile
-
-ADD $Dockerfile
-
 RUN npm run build
 
 FROM nginx:alpine
