@@ -17,7 +17,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "docker build . -t saikumar080319/react:${DOCKER_TAG}" 
+              sh "docker build -f Dockerfile -t saikumar080319/react:${DOCKER_TAG} /var/lib/jenkins/workspace/React" 
           }
     
       }
