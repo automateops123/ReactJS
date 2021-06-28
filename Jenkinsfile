@@ -15,7 +15,7 @@ pipeline {
          }
         stage("start") {
             steps {
-                 sh "screen -d -m -S screen.npmStart npm start"
+                 sh "npm start"
             }
         }
     }
