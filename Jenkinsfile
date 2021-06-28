@@ -15,7 +15,9 @@ pipeline {
          }
         stage("start") {
             steps {
-                 sh "npm start"
+               sh "touch output"
+               sh"npm start > output &"
+            
             }
         }
     }
