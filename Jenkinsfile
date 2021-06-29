@@ -17,7 +17,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "cp /var/lib/jenkins/workspace/React/abc /home/ec2-user"
+              sh "cp /var/lib/jenkins/workspace/React/abc ."
               sh "docker build -f Dockerfile /var/lib/jenkins/workspace/React -t saikumar080319/react:${DOCKER_TAG}" 
           }
     
