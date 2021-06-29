@@ -17,7 +17,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "cp Dockerfile /home/ec2-user"
+              sh "mv  ./Dockerfile /home/ec2-user"
               sh "docker build -f Dockerfile /home/ec2-user -t saikumar080319/react:${DOCKER_TAG}" 
           }
     
