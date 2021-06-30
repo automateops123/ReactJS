@@ -10,7 +10,7 @@ pipeline {
         stage("Deploy"){
             steps{
                 sshagent(['keys']) {
-                    sh "scp -o ${WORKSPACE}/build/ ec2-user@172.31.50.89:/home/ec2-user"
+                    sh "scp -o StrictHostKeyChecking=no  ${WORKSPACE}/build/ ec2-user@172.31.50.89:/home/ec2-user"
                 }
             }
         }
