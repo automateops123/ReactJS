@@ -10,7 +10,8 @@ pipeline {
         stage("Deploy"){
             steps{
                 sshagent(['keys']) {
-                    sh "scp -r  ${WORKSPACE}/build/ ec2-user@172.31.50.89:/"
+                    sh "scp -r  ${WORKSPACE}/build/ ec2-user@172.31.50.89:/home/ec2-user"
+                    sh "chown root:root build"
                     sh "cp -r build /var/www/jenkins-react-app/"
                 }
             }
