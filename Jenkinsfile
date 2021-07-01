@@ -11,7 +11,7 @@ pipeline {
             steps{
                 sshagent(['keys']) {
                     sh "scp -r  ${WORKSPACE}/build/ ec2-user@172.31.50.89:/home/ec2-user/"
-                    sh "sudo ssh ec2-user@172.31.50.89 cp -r /home/ec2-user/build/ /var/www/jenkins-react-app"
+                    sh "ssh root@172.31.50.89 cp -r /home/ec2-user/build/ /var/www/jenkins-react-app"
                 }
             }
         }
