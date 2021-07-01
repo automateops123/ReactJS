@@ -4,8 +4,6 @@ pipeline {
     DOCKER_TAG = getDockerTag()
   }
 
-    tools {nodejs "nodejs-12"}
-
       stages {
            stage ('Checkout SCM'){
              steps {
