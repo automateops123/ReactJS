@@ -22,8 +22,10 @@ pipeline {
 
       stage("Docker login & Push"){
           steps{
-          withCredentials([string(credentialsId: 'Docker', variable: 'Docker')]) {
-              sh "docker login -u saikumar080319 -p ${Docker} "
+          withCredentials([string(credentialsId: 'Docker', variable: 'Dockercred')]) {
+              sh "docker login -u saikumar080319 -p ${Dockercred} "
+               }
+              
             }
              sh "docker push saikumar080319/react:${DOCKER_TAG}"
           }
