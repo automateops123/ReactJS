@@ -26,7 +26,6 @@ pipeline {
               sh "docker login -u saikumar080319 -p ${Dockercred} "
                }
               
-            }
              sh "docker push saikumar080319/react:${DOCKER_TAG}"
           }
       }
